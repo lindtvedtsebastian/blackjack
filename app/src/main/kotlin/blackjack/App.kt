@@ -3,13 +3,7 @@
  */
 package blackjack
 
-class App {
-    val greeting: String
-        get() {
-            return "Hello World!"
-        }
-}
-
 fun main() {
-    println(App().greeting)
+    var deck = Deck()
+    deck.PrintDeck()
 }
