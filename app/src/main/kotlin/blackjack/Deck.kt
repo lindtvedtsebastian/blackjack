@@ -45,6 +45,16 @@ class Deck {
         deck.shuffle()
     }
 
+	/**
+	 * Draws the top card from the deck
+     * @return - The card that was drawn  
+	 */
+	fun DrawCard() : Card {
+		var topCard = deck.first()
+		deck.removeAt(0)
+		return topCard
+	}
+
     /**
      * Card
      *
@@ -54,12 +64,12 @@ class Deck {
      * @param value - The value of the card 
      */
     class Card(suit: Suit, value: Value) {
-        val suit: Suit;
-        val value: Value;
+        val suit: Suit
+        val value: Value
 
         init {
-            this.suit = suit;
-            this.value = value;
+            this.suit = suit
+            this.value = value
         }
 
         /**
@@ -81,7 +91,7 @@ class Deck {
             Clubs("C"),
             Diamonds("D"),
             Hearts("H"),
-            Spades("S");
+            Spades("S"),
         }
 
         /**

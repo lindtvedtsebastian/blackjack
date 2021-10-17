@@ -6,7 +6,7 @@ package blackjack
 fun main() {
     var deck = Deck()
     deck.Print()
-    deck.Shuffle()
-    print("\n\n")
+	var card = deck.DrawCard()
+    print("\n\nCard drawn: ${card.PrintableFormat()}\n\n")
     deck.Print()
 }
