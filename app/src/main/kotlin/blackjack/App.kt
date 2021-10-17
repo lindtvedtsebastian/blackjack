@@ -3,6 +3,10 @@
  */
 package blackjack
 
-fun main() {
-	Game()
+fun main(args: Array<String>) {
+	if (args.isEmpty()) {
+		Game()
+	} else {
+		Game(args[0])
+	}
 }

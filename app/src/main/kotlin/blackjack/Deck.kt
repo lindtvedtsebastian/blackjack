@@ -1,5 +1,6 @@
 package blackjack
 
+import java.io.File
 
 /**
  * Deck
@@ -9,11 +10,47 @@ package blackjack
 class Deck {
     var deck: MutableList<Card>;
 
-    init {
-        deck = Generate()
-		Shuffle()
-    }
+	constructor(filepath: String? = null) {
+		if (filepath != null) {
+			val deckFile = File(filepath).readText().replace("\\s".toRegex(),"").split(",")
+			
+			deck = mutableListOf<Card>()
+			for (card in deckFile) {
+				deck.add(Card(parseSuit(card.substring(0,1)),parseValue(card.substring(1))))
+			}
+		} else {
+			deck = Generate()
+			Shuffle()
+		}
+	}
 
+
+		fun parseSuit(suitAsString: String): Card.Suit {
+			return when (suitAsString) {
+				"C" -> Card.Suit.Clubs
+				"D" -> Card.Suit.Diamonds
+				"H" -> Card.Suit.Hearts
+				else -> Card.Suit.Spades
+			}
+		}
+
+		fun parseValue(valueAsString: String) : Card.Value {
+			return when (valueAsString) {
+				"2"  -> Card.Value.Two
+				"3"  -> Card.Value.Three
+				"4"  -> Card.Value.Four
+				"5"  -> Card.Value.Five
+				"6"  -> Card.Value.Six
+				"7"  -> Card.Value.Seven
+				"8"  -> Card.Value.Eight
+				"9"  -> Card.Value.Nine
+				"10" -> Card.Value.Ten
+				"J"  -> Card.Value.Jack
+				"Q"  -> Card.Value.Queen
+				"K"  -> Card.Value.King
+				else -> Card.Value.Ace
+			}
+		}
 
     /**
      * Prints the deck 
@@ -73,6 +110,8 @@ class Deck {
             this.value = value
         }
 
+
+
         /**
          * Printable format
          *
@@ -112,10 +151,10 @@ class Deck {
             Eight(8,"8"),
             Nine(9,"9"),
             Ten(10,"10"),
-            J(10,"J"),
-            Q(10,"Q"),
-            K(10,"K"),
-            A(11,"A"),
+            Jack(10,"J"),
+            Queen(10,"Q"),
+            King(10,"K"),
+            Ace(11,"A"),
         }
     }
 }

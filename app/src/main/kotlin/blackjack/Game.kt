@@ -8,8 +8,8 @@ class Game {
 	val STARTING_CARDS = 2
 	val BLACKJACK = 21
 
-	init {
-		deck = Deck()
+	constructor(filepath: String? = null) {
+		deck = Deck(filepath)
 		
 		sam = Sam()
 		dealer = Dealer(sam)
@@ -40,9 +40,10 @@ class Game {
 		val maybeWinner = CheckForBlackjackOrBust()
 		if (maybeWinner != null) return maybeWinner
 
-		if (samTotal > BLACKJACK) {
-			return dealer
+		if (dealerTotal > BLACKJACK && samTotal <= BLACKJACK) {
+			return sam
 		}
+		
 		if (samTotal > dealerTotal && samTotal <= BLACKJACK) {
 			return sam
 		} else {
