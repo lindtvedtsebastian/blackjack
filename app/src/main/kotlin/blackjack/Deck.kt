@@ -29,7 +29,7 @@ class Deck {
      * Generates a new sorted Deck 
      * @return - The generated deck 
      */
-    fun Generate(): MutableList<Card> {
+    fun Generate() : MutableList<Card> {
         var deck = mutableListOf<Card>()
         for (suit in enumValues<Card.Suit>()) {
             for (value in enumValues<Card.Value>()) {
@@ -46,7 +46,7 @@ class Deck {
         deck.shuffle()
     }
 
-	/**
+	/** 
 	 * Draws the top card from the deck
      * @return - The card that was drawn  
 	 */
