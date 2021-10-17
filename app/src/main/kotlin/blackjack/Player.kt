@@ -1,19 +1,21 @@
 package blackjack
 
-abstract class Player(deck : Deck) {
-	val deck : Deck
+abstract class Player() {
 	val hand : Hand 
 
 	init {
-		this.deck = deck
 		this.hand = Hand()
 	}
 
-	abstract fun Play()
-	abstract fun Name() : String 
+	abstract fun Play(deck: Deck)
+	abstract fun Name() : String
+	
+	fun PrintHand() {
+		println("${Name()}: ${hand.PrintableFormat()}")
+	}
 
-	fun DrawCard() {
-		hand.AddToHand(this.deck.DrawCard())
+	fun DrawCard(deck: Deck) {
+		hand.AddToHand(deck.DrawCard())
 	}
 
 	inner class Hand {
@@ -30,13 +32,21 @@ abstract class Player(deck : Deck) {
 		fun CalculateTotal() : Int {
 			return hand.sumOf { it.value.value } 
 		}
+
+		fun PrintableFormat() : String  {
+			val PrintableHand = mutableListOf<String>()
+			for (card in hand) {
+				PrintableHand.add(card.PrintableFormat())
+			}
+			return PrintableHand.joinToString(", ")
+		}
 	}
 }
 
-class Sam(deck : Deck) : Player(deck) {
-	override fun Play() {
+class Sam() : Player() {
+	override fun Play(deck: Deck) {
 		while (hand.CalculateTotal() < 17) {
-			DrawCard()
+			DrawCard(deck)
 		}
 	}
 	override fun Name() : String {
@@ -44,16 +54,17 @@ class Sam(deck : Deck) : Player(deck) {
 	}
 }
 
-class Dealer(deck : Deck, sam : Player) : Player(deck) {
+class Dealer(sam : Player) : Player() {
 	val player: Player
 
 	init {
 		player = sam
 	}
 	
-	override fun Play() {
-		while (hand.CalculateTotal() < player.hand.CalculateTotal()) {
-			DrawCard()
+	override fun Play(deck: Deck) {
+		val playerTotal = player.hand.CalculateTotal()
+		while (hand.CalculateTotal() <= playerTotal && playerTotal <= 21) {
+			DrawCard(deck)
 		}
 	}
 	override fun Name() : String {

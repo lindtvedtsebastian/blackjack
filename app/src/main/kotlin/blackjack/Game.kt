@@ -11,24 +11,26 @@ class Game {
 	init {
 		deck = Deck()
 		
-		sam = Sam(deck)
-		dealer = Dealer(deck, sam)
+		sam = Sam()
+		dealer = Dealer(sam)
 		Play()
 	}
 
 	fun Play() {
 		for (i in 0..STARTING_CARDS-1) {
-			sam.DrawCard()
-			dealer.DrawCard()
+			sam.DrawCard(deck)
+			dealer.DrawCard(deck)
 		}
 		
 		var winner = CheckForBlackjackOrBust()
 		if (winner == null) {
-            sam.Play()
-			dealer.Play()
+            sam.Play(deck)
+			dealer.Play(deck)
 			winner = DetermineWinner()
 		}
-		print(winner.Name())
+		println(winner.Name())
+		sam.PrintHand()
+		dealer.PrintHand()
 	}
 
 	fun DetermineWinner() : Player {
