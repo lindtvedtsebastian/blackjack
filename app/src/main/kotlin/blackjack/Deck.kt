@@ -11,6 +11,7 @@ class Deck {
 
     init {
         deck = Generate()
+		Shuffle()
     }
 
 
