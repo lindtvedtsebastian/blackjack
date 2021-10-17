@@ -8,6 +8,12 @@ import kotlin.test.assertEquals
 import kotlin.assert
 
 class DeckTest {
+
+	@Test fun loadFromPath() {
+		val testDeck = Deck("src/test/resources/deck.txt")
+		assert(testDeck.deck.size == 9)
+	}
+
 	@Test fun generateDeck() {
 		val testDeck = Deck()
 		assert(testDeck.deck.size == 52)

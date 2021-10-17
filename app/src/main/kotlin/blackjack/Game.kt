@@ -21,24 +21,24 @@ class Game {
 		
 		sam = Sam()
 		dealer = Dealer(sam)
-		Play()
+		play()
 	}
 
     /**
      * Play - Runs the game
      *
      */
-	fun Play() {
+	fun play() {
 		for (i in 0..STARTING_CARDS-1) {
 			sam.drawCard(deck)
 			dealer.drawCard(deck)
 		}
 		
-		var winner = CheckForBlackjackOrBust()
+		var winner = checkForBlackjackOrBust()
 		if (winner == null) {
             sam.play(deck)
 			dealer.play(deck)
-			winner = DetermineWinner()
+			winner = determineWinner()
 		}
 		println(winner.name)
 		sam.printHand()
@@ -50,11 +50,11 @@ class Game {
      *
      * @return The player that won
      */
-	fun DetermineWinner() : Player {
+	fun determineWinner() : Player {
 		val samTotal = sam.hand.calculateTotal()
 		val dealerTotal = dealer.hand.calculateTotal()
 
-		val maybeWinner = CheckForBlackjackOrBust()
+		val maybeWinner = checkForBlackjackOrBust()
 		if (maybeWinner != null) return maybeWinner
 
 		if (dealerTotal > BLACKJACK && samTotal <= BLACKJACK) {
@@ -76,7 +76,7 @@ class Game {
      *
      * @return The player that has won, or null
      */
-	fun CheckForBlackjackOrBust() : Player? {
+	fun checkForBlackjackOrBust() : Player? {
 		val samTotal = sam.hand.calculateTotal()
 		val dealerTotal = dealer.hand.calculateTotal()
 		
