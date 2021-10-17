@@ -5,5 +5,8 @@ package blackjack
 
 fun main() {
     var deck = Deck()
-    deck.PrintDeck()
+    deck.Print()
+    deck.Shuffle()
+    print("\n\n")
+    deck.Print()
 }

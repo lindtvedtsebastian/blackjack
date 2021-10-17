@@ -4,16 +4,16 @@ class Deck {
     var deck: MutableList<Card>;
 
     init {
-        deck = GenerateDeck()
+        deck = Generate()
     }
 
-    fun PrintDeck() {
+    fun Print() {
         for (card in deck) {
             print("${card.PrintableFormat()} ")
         }
     }
     
-    fun GenerateDeck(): MutableList<Card> {
+    fun Generate(): MutableList<Card> {
         var deck = mutableListOf<Card>()
         for (suit in enumValues<Card.Suit>()) {
             for (value in enumValues<Card.Value>()) {
@@ -21,6 +21,10 @@ class Deck {
             }
         }
         return deck
+    }
+
+    fun Shuffle() {
+        deck.shuffle()
     }
 
     class Card(suit: Suit, value: Value) {
