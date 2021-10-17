@@ -1,0 +1,47 @@
+#+title: Blackjack
+#+author: Sebastian Lindtvedt
+
+* Blackjack
+An implementation of the game Blackjack in Kotlin
+* Running the application
+** Normal (No args)
+*** Windows
+#+begin_src shell
+./gradlew run
+#+end_src
+*** MacOS/Linux
+#+begin_src shell
+gradlew run
+#+end_src
+** With command line argument (Deck file)
+Examples is with the provided "deck" file
+*** Windows
+#+begin_src shell
+./gradlew run --args='src/main/resources/deck.txt'
+#+end_src
+*** MacOS/Linux
+#+begin_src shell
+gradlew run --args='src/main/resources/deck.txt'
+#+end_src
+* Running tests
+** Windows
+#+begin_src shell
+./gradlew test
+#+end_src
+** MacOS/Linux
+#+begin_src shell
+gradlew test
+#+end_src
+* Program example
+#+begin_src shell
+
+  #### deck.txt ####
+  D10, S2, H2, D8, C3, H5, S7, C2, DA
+  #### run program ####
+  ./gradlew run --args='src/main/resources/deck.txt'
+  #### OUTPUT: ####
+  sam
+  sam: D10, H2, C3, H5
+  dealer: S2, D8, S7, C2, DA
+
+#+end_src
