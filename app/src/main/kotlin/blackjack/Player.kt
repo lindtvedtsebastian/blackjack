@@ -10,6 +10,7 @@ abstract class Player(deck : Deck) {
 	}
 
 	abstract fun Play()
+	abstract fun Name() : String 
 
 	fun DrawCard() {
 		hand.AddToHand(this.deck.DrawCard())
@@ -38,6 +39,9 @@ class Sam(deck : Deck) : Player(deck) {
 			DrawCard()
 		}
 	}
+	override fun Name() : String {
+		return "sam"
+	}
 }
 
 class Dealer(deck : Deck, sam : Player) : Player(deck) {
@@ -51,5 +55,8 @@ class Dealer(deck : Deck, sam : Player) : Player(deck) {
 		while (hand.CalculateTotal() < player.hand.CalculateTotal()) {
 			DrawCard()
 		}
+	}
+	override fun Name() : String {
+		return "dealer"
 	}
 }

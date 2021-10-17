@@ -4,9 +4,5 @@
 package blackjack
 
 fun main() {
-    var deck = Deck()
-    deck.Print()
-	var card = deck.DrawCard()
-    print("\n\nCard drawn: ${card.PrintableFormat()}\n\n")
-    deck.Print()
+	Game()
 }
