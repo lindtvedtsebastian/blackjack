@@ -24,33 +24,44 @@ class Deck {
 		}
 	}
 
+    /**
+     * Parse suit
+     *
+     * @param suitAsString - The suit in string form
+     * @return - The parsed suit
+     */
+    fun parseSuit(suitAsString: String): Card.Suit {
+        return when (suitAsString) {
+            "C" -> Card.Suit.Clubs
+            "D" -> Card.Suit.Diamonds
+            "H" -> Card.Suit.Hearts
+            else -> Card.Suit.Spades
+        }
+    }
 
-		fun parseSuit(suitAsString: String): Card.Suit {
-			return when (suitAsString) {
-				"C" -> Card.Suit.Clubs
-				"D" -> Card.Suit.Diamonds
-				"H" -> Card.Suit.Hearts
-				else -> Card.Suit.Spades
-			}
-		}
-
-		fun parseValue(valueAsString: String) : Card.Value {
-			return when (valueAsString) {
-				"2"  -> Card.Value.Two
-				"3"  -> Card.Value.Three
-				"4"  -> Card.Value.Four
-				"5"  -> Card.Value.Five
-				"6"  -> Card.Value.Six
-				"7"  -> Card.Value.Seven
-				"8"  -> Card.Value.Eight
-				"9"  -> Card.Value.Nine
-				"10" -> Card.Value.Ten
-				"J"  -> Card.Value.Jack
-				"Q"  -> Card.Value.Queen
-				"K"  -> Card.Value.King
-				else -> Card.Value.Ace
-			}
-		}
+    /**
+     * Parse value
+     *
+     * @param valueAsString - The value in string form
+     * @return - The parsed value
+     */
+    fun parseValue(valueAsString: String) : Card.Value {
+        return when (valueAsString) {
+            "2"  -> Card.Value.Two
+            "3"  -> Card.Value.Three
+            "4"  -> Card.Value.Four
+            "5"  -> Card.Value.Five
+            "6"  -> Card.Value.Six
+            "7"  -> Card.Value.Seven
+            "8"  -> Card.Value.Eight
+            "9"  -> Card.Value.Nine
+            "10" -> Card.Value.Ten
+            "J"  -> Card.Value.Jack
+            "Q"  -> Card.Value.Queen
+            "K"  -> Card.Value.King
+            else -> Card.Value.Ace
+        }
+    }
 
     /**
      * Prints the deck 

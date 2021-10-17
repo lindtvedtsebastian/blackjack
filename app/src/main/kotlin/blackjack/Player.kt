@@ -1,73 +1,114 @@
 package blackjack
 
-abstract class Player() {
-	val hand : Hand 
+/**
+ * Player - The base class for a player
+ *
+ * @constructor Create new Player
+ */
+abstract class Player(name : String) {
+	val hand : Hand
+	val name : String
 
 	init {
 		this.hand = Hand()
+        this.name = name
 	}
 
-	abstract fun Play(deck: Deck)
-	abstract fun Name() : String
-	
-	fun PrintHand() {
-		println("${Name()}: ${hand.PrintableFormat()}")
+	abstract fun play(deck: Deck)
+
+    /**
+     * Prints the name and hand of the player
+     */
+	fun printHand() {
+		println("$name: ${hand.printableFormat()}")
 	}
 
-	fun DrawCard(deck: Deck) {
-		hand.AddToHand(deck.DrawCard())
+    /**
+     * Draws a card from the deck provided
+     *
+     * @param deck - The deck to draw the card from
+     */
+	fun drawCard(deck: Deck) {
+		hand.addToHand(deck.DrawCard())
 	}
 
+    /**
+     * Hand - A collection of cards held by a player
+     *
+     * @constructor Create new Hand
+     */
 	inner class Hand {
-		val hand: MutableList<Deck.Card>
+		private val hand: MutableList<Deck.Card> = mutableListOf<Deck.Card>()
 
-		init {
-			hand = mutableListOf<Deck.Card>()
-		}
-
-		fun AddToHand(card : Deck.Card) {
+        /**
+         * Add to hand
+         *
+         * @param card - The card to be added to the hand
+         */
+        fun addToHand(card : Deck.Card) {
 			hand.add(card)
 		}
 
-		fun CalculateTotal() : Int {
+        /**
+         * Calculates the total value of all the cards in the hand
+         *
+         * @return - The total value of the hand
+         */
+		fun calculateTotal() : Int {
 			return hand.sumOf { it.value.value } 
 		}
 
-		fun PrintableFormat() : String  {
-			val PrintableHand = mutableListOf<String>()
+        /**
+         * Converts the hand to a printable string
+         *
+         * @return
+         */
+		fun printableFormat() : String  {
+			val printableHand = mutableListOf<String>()
 			for (card in hand) {
-				PrintableHand.add(card.PrintableFormat())
+				printableHand.add(card.PrintableFormat())
 			}
-			return PrintableHand.joinToString(", ")
+			return printableHand.joinToString(", ")
 		}
 	}
 }
 
-class Sam() : Player() {
-	override fun Play(deck: Deck) {
-		while (hand.CalculateTotal() < 17) {
-			DrawCard(deck)
+/**
+ * Sam - A player
+ *
+ * @param name - The name of the player
+ */
+class Sam(name : String = "sam") : Player(name) {
+    /**
+     * Play - The logic of this player
+     *
+     * @param deck - The deck to draw cards from
+     */
+	override fun play(deck: Deck) {
+		while (hand.calculateTotal() < 17) {
+			drawCard(deck)
 		}
-	}
-	override fun Name() : String {
-		return "sam"
 	}
 }
 
-class Dealer(sam : Player) : Player() {
-	val player: Player
+/**
+ * Dealer - A player
+ *
+ * @param sam - The "sam" this player is playing against
+ * @param name - The name of the player
+ */
+class Dealer(sam : Player,name: String = "dealer") : Player(name) {
+	private val player: Player = sam
 
-	init {
-		player = sam
-	}
-	
-	override fun Play(deck: Deck) {
-		val playerTotal = player.hand.CalculateTotal()
-		while (hand.CalculateTotal() <= playerTotal && playerTotal <= 21) {
-			DrawCard(deck)
+    /**
+     * Play - The logic of this player
+     *
+     * @param deck - The deck to draw cards from
+     */
+    override fun play(deck: Deck) {
+		val playerTotal = player.hand.calculateTotal()
+		while (hand.calculateTotal() <= playerTotal && playerTotal <= 21) {
+			drawCard(deck)
 		}
-	}
-	override fun Name() : String {
-		return "dealer"
 	}
 }
