@@ -4,7 +4,6 @@ import kotlin.test.Test
 import kotlin.test.assertIs
 
 class GameTest {
-
 	
 	@Test fun play() {
 		val testGame = Game("src/test/resources/deck.txt")
